@@ -1,0 +1,94 @@
+# 20170625Blackboard盧老師教學用線上黑板
+
+1.盧老師附贈一本 盧老師在授「虛擬貨幣與區塊鏈技術」的上課指定教科書：Mastering Bitcoin (精通比特幣)
+
+此書有多種語言翻譯版本，英文版由O'Rilly出版社出版。 其他語言由作者依C.C授權免費開放給其他語言自由翻譯
+
+2.查詢以下地址：1APtYTnTxVG1HEt9b7V4pyA4JDgwtDqjv
+
+```
+sudo docker pull hyperledger/fabric-peer:x86_64-0.6.1-preview
+sudo docker tag hyperledger/fabric-peer:x86_64-0.6.1-preview hyperledger/fabric-peer:latest     
+sudo docker tag hyperledger/fabric-peer:x86_64-0.6.1-preview hyperledger/fabric-baseimage:latest
+```
+
+
+```
+出錯就全刪的指令
+sudo docker ps -aq|xargs sudo docker rm -f
+```
+
+```
+sudo docker run --name=vp0 \
+    -p 7050:7050 \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -e CORE_VM_ENDPOINT=unix:///var/run/docker.sock \
+    -e CORE_LOGGING_LEVEL=debug \
+    -e CORE_PEER_ID=vp0 \
+    -e CORE_PEER_NETWORKID=dev \
+    -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
+    -e CORE_PEER_ADDRESSAUTODETECT=true \
+    -e CORE_PBFT_GENERAL_N=4 \
+    -e CORE_PBFT_GENERAL_MODE=batch \
+    -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
+    --rm hyperledger/fabric-peer:latest peer node start
+
+sudo docker run --name=vp1 \
+    -p 8050:7050 \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -e CORE_VM_ENDPOINT=unix:///var/run/docker.sock \
+    -e CORE_LOGGING_LEVEL=info \
+    -e CORE_PEER_ID=vp1 \
+    -e CORE_PEER_NETWORKID=dev \
+    -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
+    -e CORE_PEER_ADDRESSAUTODETECT=true \
+    -e CORE_PBFT_GENERAL_N=4 \
+    -e CORE_PBFT_GENERAL_MODE=batch \
+    -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
+    -e CORE_PEER_DISCOVERY_ROOTNODE=172.17.0.2:7051 \
+    --rm hyperledger/fabric-peer:latest peer node start
+
+sudo docker run --name=vp2 \
+    -p 9050:7050 \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -e CORE_VM_ENDPOINT=unix:///var/run/docker.sock \
+    -e CORE_LOGGING_LEVEL=info \
+    -e CORE_PEER_ID=vp2 \
+    -e CORE_PEER_NETWORKID=dev \
+    -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
+    -e CORE_PEER_ADDRESSAUTODETECT=true \
+    -e CORE_PBFT_GENERAL_N=4 \
+    -e CORE_PBFT_GENERAL_MODE=batch \
+    -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
+    -e CORE_PEER_DISCOVERY_ROOTNODE=172.17.0.2:7051 \
+    --rm hyperledger/fabric-peer:latest peer node start
+
+sudo docker run --name=vp3 \
+    -p 10050:7050 \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -e CORE_VM_ENDPOINT=unix:///var/run/docker.sock \
+    -e CORE_LOGGING_LEVEL=info \
+    -e CORE_PEER_ID=vp3 \
+    -e CORE_PEER_NETWORKID=dev \
+    -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
+    -e CORE_PEER_ADDRESSAUTODETECT=true \
+    -e CORE_PBFT_GENERAL_N=4 \
+    -e CORE_PBFT_GENERAL_MODE=batch \
+    -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
+    -e CORE_PEER_DISCOVERY_ROOTNODE=172.17.0.2:7051 \
+    --rm hyperledger/fabric-peer:latest peer node start
+```
+```
+sudo docker exec -it vp2 bash
+
+peer chaincode deploy \
+-p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02 \
+-c '{"function":"init", "args": [ "a" , "100" , "b" , "200"]}'
+
+chaincode_name=ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539
+
+peer chaincode query -n $chaincode_name -c '{"Function": "query", "Args": ["a"]}'
+peer chaincode invoke -n $chaincode_name -c '{"Function": "invoke", "Args": ["a", "b", "35"]}'
+peer chaincode query -n $chaincode_name -c '{"Function": "query", "Args": ["a"]}'
+
+```
