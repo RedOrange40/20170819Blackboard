@@ -5,6 +5,14 @@ Bitcoin (精通比特幣)
 
 此書有多種語言翻譯版本，英文版由O'Rilly出版社出版。 其他語言由作者依C.C授權免費開放給其他語言自由翻譯
 
+
+請同學觀看以下影片：
+ a.GCP免費帳號的申請與使用 https://youtu.be/a3oBHg5bUmI
+ b.建立GCP上的虛擬機  https://youtu.be/oAqH3NzXP7I
+
+
+
+
 2.查詢以下地址：1APtYTnTxVG1HEt9b7V4pyA4JDgwtDqjv
 
 ```
