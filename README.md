@@ -7,6 +7,7 @@ Bitcoin (精通比特幣)
 
 
 2.請同學觀看以下影片：
+
  a.GCP免費帳號的申請與使用 https://youtu.be/a3oBHg5bUmI
 
  b.建立GCP上的虛擬機  https://youtu.be/oAqH3NzXP7I
