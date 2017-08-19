@@ -16,11 +16,20 @@ Bitcoin (精通比特幣)
 3.查詢以下地址：1APtYTnTxVG1HEt9b7V4pyA4JDgwtDqjv
 
 
+4.實作四 200行程式碼的迷你區塊鏈 
+
+實作-如何將兩個原本獨立的迷你區塊鏈連結成一個聯盟鏈   
+https://youtu.be/BHlkT6-52QI 
+
+
 2017/08/19 實作五 教學影片:
 hyperledgerFabric-v0.6-01-IBM Bluemix上的Fabric試用範例. https://youtu.be/GFMOXGU1Ns0
+
 hyperledgerFabric-v0.6-02-共識系統的觀念解說 (20:06) https://youtu.be/yl9Hagy2oO8
+
 hyperledgerFabric-v0.6-03實作演練 利用腳本程序把四個節點的區塊鏈運行起來-01 (19:19) 
 https://youtu.be/NPT44pSHrw8
+
 hyperledgerFabric-v0.6-04-實作演練:利用腳本程序把四個節點的區塊鏈運行起來-02 (15:14) 
 https://youtu.be/g461_a63WP0
 
